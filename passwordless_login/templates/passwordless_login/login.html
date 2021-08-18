@@ -1,0 +1,31 @@
+{% block content %}
+
+<div class="ui grid container">
+    <div class="ui text container">
+        {% if not content %}
+        <p>Welcome! Please complete the form to receive a login link.</p>
+        <form class="ui form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="field">
+                <label for="email">Your email:</label>
+                <input id="email" type="email" name="email" autocomplete="email" placeholder="someone@example.com"
+                    required="">
+                <input type="hidden" name="next" value="{{ next }}">
+            </div>
+            <input class="ui button" type="submit" value="Submit">
+        </form>
+        {% endif %}
+        {% if content %}
+        <div class="ui positive message">
+            {{ content }}
+        </div>
+        {% endif %}
+        {% if error %}
+        <div class="ui negative message">
+            {{ error }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

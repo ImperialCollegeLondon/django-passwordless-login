@@ -1,0 +1,3 @@
+Django
+django-sesame[ua]
+djangorestframework
