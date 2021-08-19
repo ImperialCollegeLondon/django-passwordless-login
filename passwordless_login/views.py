@@ -11,7 +11,7 @@ from django.core.validators import validate_email
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from .settings import TEMPLATE_PATH
+from .settings import CREATE_NEW_USERS, TEMPLATE_PATH
 
 
 def login(request):
@@ -34,9 +34,31 @@ def login(request):
             TEMPLATE_PATH,
             {"error": f"'{email}' is not a valid email", "next": request.POST["next"]},
         )
-    user, _ = get_user_model().objects.get_or_create(
-        username=email.lower(), email=email.lower()
-    )
+    if CREATE_NEW_USERS:
+        user, _ = get_user_model().objects.get_or_create(
+            username=email.lower(), email=email.lower()
+        )
+    else:
+        try:
+            user = get_user_model().objects.get(email=email.lower())
+        except get_user_model().DoesNotExist:
+            return render(
+                request,
+                TEMPLATE_PATH,
+                {
+                    "error": f"There is no active user associated with {email}",
+                    "next": request.POST["next"],
+                },
+            )
+        except get_user_model().MultipleObjectsReturned:
+            return render(
+                request,
+                TEMPLATE_PATH,
+                {
+                    "error": f"There are multiple users associated with {email}",
+                    "next": request.POST["next"],
+                },
+            )
     if not user.is_active:
         return render(
             request,
