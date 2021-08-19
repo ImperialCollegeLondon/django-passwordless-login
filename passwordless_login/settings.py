@@ -15,10 +15,11 @@ settings.SESAME_MAX_AGE = getattr(
 )
 settings.SESAME_ONE_TIME = getattr(settings, "LOGIN_ONE_TIME", True)
 
-settings.CONTACT_EMAIL = getattr(settings, "LOGIN_CONTACT_EMAIL", "")
-settings.DEFAULT_FROM_EMAIL = getattr(
-    settings, "LOGIN_DEFAULT_FROM_EMAIL", ""
+TEMPLATE_PATH = getattr(
+    settings, "LOGIN_TEMPLATE_PATH", "passwordless_login/login.html"
 )
+settings.CONTACT_EMAIL = getattr(settings, "LOGIN_CONTACT_EMAIL", "")
+settings.DEFAULT_FROM_EMAIL = getattr(settings, "LOGIN_DEFAULT_FROM_EMAIL", "")
 settings.EMAIL_CONTENT = getattr(
     settings,
     "LOGIN_EMAIL_CONTENT",

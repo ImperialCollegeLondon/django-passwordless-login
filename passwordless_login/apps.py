@@ -6,4 +6,4 @@ class PasswordlessLoginConfig(AppConfig):
     name = "passwordless_login"
 
     def ready(self):
-        from . import settings
+        from . import settings  # noqa:F401
