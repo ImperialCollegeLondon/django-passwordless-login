@@ -8,7 +8,6 @@ from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.core.validators import validate_email
 from django.shortcuts import redirect, render
-from django.urls import reverse
 
 from .settings import settings
 
@@ -16,12 +15,12 @@ from .settings import settings
 def login(request):
     if not request.method == "POST":
         if request.user.is_authenticated:
-            return redirect("index")
+            return redirect("/")
         else:
             return render(
                 request,
                 settings.TEMPLATE_PATH,
-                {"next": request.GET.get("next", reverse("index"))},
+                {"next": request.GET.get("next", "")},
             )
 
     email = request.POST["email"]

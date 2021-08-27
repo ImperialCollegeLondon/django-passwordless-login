@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.core import mail
 from django.test import TestCase
 from django.conf import settings
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 
 class TestLoginView(TestCase):
@@ -13,11 +13,8 @@ class TestLoginView(TestCase):
 
     def test_get(self):
         """Get request should have status code 200"""
-        reverse = MagicMock()
-        with patch("passwordless_login.views.reverse", reverse):
-            response = self.client.get("/login/")
-            self.assertEqual(response.status_code, 200)
-            self.assertTrue(reverse.called_with("index"))
+        response = self.client.get("/login/")
+        self.assertEqual(response.status_code, 200)
 
     def test_post_invalid_email(self):
         """Only allow valid emails"""
