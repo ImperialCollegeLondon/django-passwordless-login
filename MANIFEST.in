@@ -1,0 +1,3 @@
+include README.md
+recursive-include django_passwordless_login/static *
+recursive-include django_passwordless_login/templates *

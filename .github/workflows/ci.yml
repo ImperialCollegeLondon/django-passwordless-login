@@ -1,0 +1,20 @@
+on: push
+jobs:
+  qa:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install prerequisites
+        run: |
+          python -m pip install -q -U pip
+          python -m pip install -q -r requirements.txt
+      - name: Run linter
+        run: |
+          python -m pip install -q flake8
+          flake8
+      - name: Run tests
+        run: |
+          python run_tests.py
