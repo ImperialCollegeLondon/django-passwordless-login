@@ -38,5 +38,5 @@ If you did not request access or have any difficulty logging in then please cont
 
 Best wishes,
 
-The Human-centred, Automation, Robotics and Monitoring in Surgery (HARMS lab) team""",
+The {app_name} team""",
 )
