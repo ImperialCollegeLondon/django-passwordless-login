@@ -3,48 +3,21 @@ import re
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.test import TestCase
-from django.contrib.auth.models import User
-from django.urls import reverse
-from rest_framework import status
-
-
-class PasswordlessTestCase(TestCase):
-    def setUp(self):
-        email = "j.smith@hotmail.com"
-        self.device_id = "20146435807d3a4a81dd"
-        self.user = User.objects.create_user(email, email=email)
-
-    def test_paswordless(self):
-        response = self.client.post(reverse("login"), {"email": self.user.email})
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_invalid_email(self):
-        response = self.client.post(reverse("login"), {"email": "j.smith"})
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-    def test_no_user(self):
-        response = self.client.post(reverse("login"), {"email": "unknown@mail.com"})
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-    def test_inactive_user(self):
-        email = "j.smith2@hotmail.com"
-        user = User.objects.create_user(email, email=email, is_active=False)
-        response = self.client.post(reverse("login"), {"email": user.email})
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-    def test_duplicate_email(self):
-        User.objects.create_user("jsmith", email=self.user.email)
-        response = self.client.post(reverse("login"), {"email": self.user.email})
-        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
+from django.conf import settings
+from unittest.mock import MagicMock, patch
 
 
 class TestLoginView(TestCase):
+    settings.CREATE_NEW_USERS = True
     email = "foo@imperial.ac.uk"
 
     def test_get(self):
         """Get request should have status code 200"""
-        response = self.client.get("/login/")
-        self.assertEqual(response.status_code, 200)
+        reverse = MagicMock()
+        with patch("passwordless_login.views.reverse", reverse):
+            response = self.client.get("/login/")
+            self.assertEqual(response.status_code, 200)
+            self.assertTrue(reverse.called_with("index"))
 
     def test_post_invalid_email(self):
         """Only allow valid emails"""
@@ -55,12 +28,32 @@ class TestLoginView(TestCase):
     def test_post(self):
         """An email associated with a user in the database should be sent when email is
         submitted"""
+        with patch("django.conf.settings.CREATE_NEW_USERS", False):
+            response = self.client.post("/login/", {"next": "", "email": self.email})
+            with self.assertRaises(get_user_model().DoesNotExist):
+                get_user_model().objects.get(username=self.email)
+            self.assertIn(
+                f"There is no active user associated with {self.email}",
+                response.context["error"],
+            )
+
         response = self.client.post("/login/", {"next": "", "email": self.email})
         self.assertIsNotNone(get_user_model().objects.get(username=self.email))
         self.assertIn(
             f"Your login link has been sent to {self.email}",
             response.context["content"],
         )
+
+    def test_post_duplicate_email(self):
+        """An email associated with multiple users should not be possible."""
+        get_user_model().objects.create_user(self.email, email=self.email)
+        get_user_model().objects.create_user("foobar", email=self.email)
+        with patch("django.conf.settings.CREATE_NEW_USERS", False):
+            response = self.client.post("/login/", {"next": "", "email": self.email})
+            self.assertIn(
+                f"There are multiple users associated with {self.email}",
+                response.context["error"],
+            )
 
     def test_post_inactive_user(self):
         """An email associated with an inactive user returns a message that the account
@@ -110,6 +103,7 @@ class TestLoginView(TestCase):
 
     def test_upper_lower_case(self):
         """Same email differently capitalised should map to the same user"""
+        user_count = get_user_model().objects.count()
         self.client.post("/login/", {"next": "", "email": self.email})
         self.client.post("/login/", {"next": "", "email": self.email.capitalize()})
-        self.assertEqual(get_user_model().objects.count(), 1)
+        self.assertEqual(get_user_model().objects.count(), user_count + 1)

@@ -17,4 +17,4 @@ jobs:
           flake8
       - name: Run tests
         run: |
-          python manage.py test --no-input
+          python run_tests.py

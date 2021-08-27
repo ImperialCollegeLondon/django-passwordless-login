@@ -15,10 +15,11 @@ settings.SESAME_MAX_AGE = getattr(
 )
 settings.SESAME_ONE_TIME = getattr(settings, "LOGIN_ONE_TIME", True)
 
-TEMPLATE_PATH = getattr(
+settings.APP_NAME = "Passwordless Login"
+settings.TEMPLATE_PATH = getattr(
     settings, "LOGIN_TEMPLATE_PATH", "passwordless_login/login.html"
 )
-CREATE_NEW_USERS = getattr(settings, "LOGIN_CREATE_NEW_USERS", True)
+settings.CREATE_NEW_USERS = getattr(settings, "LOGIN_CREATE_NEW_USERS", True)
 settings.CONTACT_EMAIL = getattr(settings, "LOGIN_CONTACT_EMAIL", "")
 settings.DEFAULT_FROM_EMAIL = getattr(settings, "LOGIN_DEFAULT_FROM_EMAIL", "")
 settings.EMAIL_CONTENT = getattr(
@@ -33,7 +34,7 @@ used once:
 {link}
 
 If you did not request access or have any difficulty logging in then please contact
-{email}.
+{contact_email}.
 
 Best wishes,
 

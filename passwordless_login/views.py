@@ -3,7 +3,6 @@ from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 import sesame.utils
 
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
@@ -11,7 +10,7 @@ from django.core.validators import validate_email
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from .settings import CREATE_NEW_USERS, TEMPLATE_PATH
+from .settings import settings
 
 
 def login(request):
@@ -21,7 +20,7 @@ def login(request):
         else:
             return render(
                 request,
-                TEMPLATE_PATH,
+                settings.TEMPLATE_PATH,
                 {"next": request.GET.get("next", reverse("index"))},
             )
 
@@ -31,10 +30,10 @@ def login(request):
     except ValidationError:
         return render(
             request,
-            TEMPLATE_PATH,
+            settings.TEMPLATE_PATH,
             {"error": f"'{email}' is not a valid email", "next": request.POST["next"]},
         )
-    if CREATE_NEW_USERS:
+    if settings.CREATE_NEW_USERS:
         user, _ = get_user_model().objects.get_or_create(
             username=email.lower(), email=email.lower()
         )
@@ -44,7 +43,7 @@ def login(request):
         except get_user_model().DoesNotExist:
             return render(
                 request,
-                TEMPLATE_PATH,
+                settings.TEMPLATE_PATH,
                 {
                     "error": f"There is no active user associated with {email}",
                     "next": request.POST["next"],
@@ -53,16 +52,19 @@ def login(request):
         except get_user_model().MultipleObjectsReturned:
             return render(
                 request,
-                TEMPLATE_PATH,
+                settings.TEMPLATE_PATH,
                 {
-                    "error": f"There are multiple users associated with {email}",
+                    "error": (
+                        f"There are multiple users associated with {email}. Please "
+                        "contact {settings.CONTACT_EMAIL} to access your account."
+                    ),
                     "next": request.POST["next"],
                 },
             )
     if not user.is_active:
         return render(
             request,
-            TEMPLATE_PATH,
+            settings.TEMPLATE_PATH,
             {"error": "Account disabled", "next": request.POST["next"]},
         )
 
@@ -86,4 +88,4 @@ def login(request):
         f"Your login link has been sent to {email}. It may take a few minutes to "
         "arrive. Please check your spam folder."
     )
-    return render(request, TEMPLATE_PATH, {"content": message})
+    return render(request, settings.TEMPLATE_PATH, {"content": message})
