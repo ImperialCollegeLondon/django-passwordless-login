@@ -3,12 +3,11 @@ import re
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.test import TestCase
-from django.conf import settings
 from unittest.mock import patch
 
 
+@patch("django.conf.settings.CREATE_NEW_USERS", True)
 class TestLoginView(TestCase):
-    settings.CREATE_NEW_USERS = True
     email = "foo@imperial.ac.uk"
 
     def test_get(self):
