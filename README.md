@@ -28,10 +28,11 @@ include("passwordless_login.urls")
 Customisable Settings include:
  - `LOGIN_MAX_AGE` - A `datetime.timedelta` of the duration the login link will last (default 30 minutes)
  - `LOGIN_ONE_TIME` - If the login link can be used one time only (default `True`)
- - `LOGIN_CONTACT_EMAIL`
- - `DEFAULT_FROM_EMAIL`
- - `LOGIN_EMAIL_CONTENT` - The content of the email, should include dynamic/format references to `link` (required), `minutes` (equivalent to `LOGIN_MAX_AGE`), `app_name`, and `contact_email`.
  - `LOGIN_CREATE_NEW_USERS` - Boolean for whether or not this login form should create new users or just log in existing ones.
+ - `LOGIN_EMAIL_CONTENT` - The content of the email, should include dynamic/format references to `link` (required), `minutes` (equivalent to `LOGIN_MAX_AGE`), `app_name`, and `contact_email`.
+ - `APP_NAME` - used in the default email content
+ - `LOGIN_CONTACT_EMAIL` - used in the default email content
+ - `DEFAULT_FROM_EMAIL` - used in the default email content
 
 For development servers, change the `EMAIL_BACKEND` setting to allow emails to be printed to the console:
 ```

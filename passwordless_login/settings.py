@@ -15,12 +15,12 @@ settings.SESAME_MAX_AGE = getattr(
 )
 settings.SESAME_ONE_TIME = getattr(settings, "LOGIN_ONE_TIME", True)
 
-settings.APP_NAME = "Passwordless Login"
+settings.APP_NAME = getattr(settings, "APP_NAME", "Passwordless Login")
 settings.TEMPLATE_PATH = getattr(
     settings, "LOGIN_TEMPLATE_PATH", "passwordless_login/login.html"
 )
 settings.CREATE_NEW_USERS = getattr(settings, "LOGIN_CREATE_NEW_USERS", True)
-settings.CONTACT_EMAIL = getattr(settings, "LOGIN_CONTACT_EMAIL", "")
+settings.CONTACT_EMAIL = getattr(settings, "LOGIN_CONTACT_EMAIL", "us")
 settings.DEFAULT_FROM_EMAIL = getattr(settings, "LOGIN_DEFAULT_FROM_EMAIL", "")
 settings.EMAIL_CONTENT = getattr(
     settings,
