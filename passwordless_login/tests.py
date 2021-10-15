@@ -1,9 +1,9 @@
 import re
+from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.test import TestCase
-from unittest.mock import patch
 
 
 @patch("django.conf.settings.CREATE_NEW_USERS", True)
