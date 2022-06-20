@@ -1,11 +1,18 @@
 # django-passwordless-login
+
+[![Test and build](https://github.com/ImperialCollegeLondon/django-passwordless-login/actions/workflows/ci.yml/badge.svg)](https://github.com/ImperialCollegeLondon/django-passwordless-login/actions/workflows/ci.yml)
+[![PyPI version shields.io](https://img.shields.io/pypi/v/pydjango-passwordless-login.svg)](https://pypi.python.org/pypi/pydjango-passwordless-login/)
+[![PyPI status](https://img.shields.io/pypi/status/pydjango-passwordless-login.svg)](https://pypi.python.org/pypi/pydjango-passwordless-login/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/pydjango-passwordless-login.svg)](https://pypi.python.org/pypi/pydjango-passwordless-login/)
+[![PyPI license](https://img.shields.io/pypi/l/pydjango-passwordless-login.svg)](https://pypi.python.org/pypi/pydjango-passwordless-login/)
+
 Login to your Django app with a link sent by email.
 
 ### Adding it to your django project
 
 1. Install django-passwordless-login:
 ```
-$ pip install https://github.com/ImperialCollegeLondon/django-passwordless-login
+$ pip install django-passwordless-login
 ```
 1. Add `"passwordless_login.apps.PasswordlessLoginConfig"` to `INSTALLED_APPS`:
 ```
