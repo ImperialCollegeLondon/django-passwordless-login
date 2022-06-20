@@ -1,3 +1,4 @@
 include README.md
 recursive-include passwordless_login/static *
 recursive-include passwordless_login/templates *
+include requirements.txt
