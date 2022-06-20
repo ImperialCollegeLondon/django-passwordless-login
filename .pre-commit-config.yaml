@@ -1,0 +1,16 @@
+repos:
+  - repo: https://github.com/timothycrosley/isort
+    rev: "5.10.1"
+    hooks:
+      - id: isort
+        additional_dependencies: [toml]
+  - repo: https://github.com/psf/black
+    rev: "22.3.0"
+    hooks:
+      - id: black
+        exclude: powbal_core/migrations/
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.9.2
+    hooks:
+      - id: flake8
+        exclude: powbal_core/migrations/

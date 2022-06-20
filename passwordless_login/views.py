@@ -2,7 +2,6 @@ from datetime import timedelta
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 import sesame.utils
-
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail

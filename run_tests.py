@@ -1,8 +1,8 @@
 import sys
 
 import django
-from django.test.runner import DiscoverRunner
 from django.conf import settings
+from django.test.runner import DiscoverRunner
 
 
 def run_tests(*test_args):
