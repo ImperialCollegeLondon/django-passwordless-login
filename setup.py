@@ -17,6 +17,13 @@ setup(
     url="https://github.com/ImperialCollegeLondon/django-passwordless-login",
     author="Adrian D'Alessandro",
     author_email="a.dalessandro@imperial.ac.uk",
+    license="BSD-3-Clause",
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+    ],
     install_requires=dependencies,
     extras_require={},
     packages=find_packages("."),
