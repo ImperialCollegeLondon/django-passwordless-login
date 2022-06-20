@@ -1,10 +1,10 @@
 # django-passwordless-login
 
 [![Test and build](https://github.com/ImperialCollegeLondon/django-passwordless-login/actions/workflows/ci.yml/badge.svg)](https://github.com/ImperialCollegeLondon/django-passwordless-login/actions/workflows/ci.yml)
-[![PyPI version shields.io](https://img.shields.io/pypi/v/pydjango-passwordless-login.svg)](https://pypi.python.org/pypi/pydjango-passwordless-login/)
-[![PyPI status](https://img.shields.io/pypi/status/pydjango-passwordless-login.svg)](https://pypi.python.org/pypi/pydjango-passwordless-login/)
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/pydjango-passwordless-login.svg)](https://pypi.python.org/pypi/pydjango-passwordless-login/)
-[![PyPI license](https://img.shields.io/pypi/l/pydjango-passwordless-login.svg)](https://pypi.python.org/pypi/pydjango-passwordless-login/)
+[![PyPI version shields.io](https://img.shields.io/pypi/v/django-passwordless-login.svg)](https://pypi.python.org/pypi/django-passwordless-login/)
+[![PyPI status](https://img.shields.io/pypi/status/django-passwordless-login.svg)](https://pypi.python.org/pypi/django-passwordless-login/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/django-passwordless-login.svg)](https://pypi.python.org/pypi/django-passwordless-login/)
+[![PyPI license](https://img.shields.io/pypi/l/django-passwordless-login.svg)](https://pypi.python.org/pypi/django-passwordless-login/)
 
 Login to your Django app with a link sent by email.
 
