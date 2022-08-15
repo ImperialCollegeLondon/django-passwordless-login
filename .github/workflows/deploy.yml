@@ -12,7 +12,7 @@ jobs:
     - name: Get history and tags for SCM versioning to work
       run: |
         git fetch --prune --unshallow
-        git fetch --all --tags
+        git fetch --all --tags -f
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
