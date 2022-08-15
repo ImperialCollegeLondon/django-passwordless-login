@@ -22,6 +22,7 @@ settings.TEMPLATE_PATH = getattr(
 )
 settings.CREATE_NEW_USERS = getattr(settings, "LOGIN_CREATE_NEW_USERS", True)
 settings.CONTACT_EMAIL = getattr(settings, "LOGIN_CONTACT_EMAIL", "us")
+settings.FROM_EMAIL = getattr(settings, "LOGIN_FROM_EMAIL", None)
 settings.EMAIL_CONTENT = getattr(
     settings,
     "LOGIN_EMAIL_CONTENT",

@@ -39,7 +39,7 @@ Customisable Settings include:
  - `LOGIN_EMAIL_CONTENT` - The content of the email, should include dynamic/format references to `link` (required), `minutes` (equivalent to `LOGIN_MAX_AGE`), `app_name`, and `contact_email`.
  - `APP_NAME` - used in the default email content
  - `LOGIN_CONTACT_EMAIL` - used in the default email content
- - `DEFAULT_FROM_EMAIL` - used in the default email content
+ - `LOGIN_FROM_EMAIL` - used as the from email if desired to be different from the standard Django [DEFAULT_FROM_EMAIL](https://docs.djangoproject.com/en/4.1/ref/settings/#default-from-email)
 
 For development servers, change the `EMAIL_BACKEND` setting to allow emails to be printed to the console:
 ```
