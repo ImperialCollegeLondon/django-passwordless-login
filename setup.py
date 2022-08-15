@@ -10,7 +10,7 @@ with Path("README.md").open("r") as f:
 
 setup(
     name="django-passwordless-login",
-    version="0.0.2",
+    version="0.0.3",
     description="Login to your Django app with a link sent by email.",
     long_description=long_description,
     long_description_content_type="text/markdown",
