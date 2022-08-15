@@ -4,7 +4,7 @@
     <div class="ui text container">
         {% if not content %}
         <p>Welcome! Please complete the form to receive a login link.</p>
-        <form class="ui form" method="post" action="{% url 'login' %}">
+        <form class="ui form" method="post">
             {% csrf_token %}
             <div class="field">
                 <label for="email">Your email:</label>
