@@ -79,7 +79,7 @@ def login(request):
             app_name=settings.APP_NAME,
             contact_email=settings.CONTACT_EMAIL,
         ),
-        None,
+        settings.FROM_EMAIL,
         [email],
     )
     message = (
